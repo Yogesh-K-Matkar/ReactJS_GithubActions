@@ -1,7 +1,7 @@
 {
  "compilerOptions": {
-  "outDir": ".github/compile",
-  "rootDir": "src",
+  "outDir": "dist/compile",
+  "rootDir": ".",
  },
  "include": [
   "src/**/*"

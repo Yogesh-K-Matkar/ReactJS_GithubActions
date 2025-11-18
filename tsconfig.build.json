@@ -1,6 +1,9 @@
 {
  "compilerOptions": {
   "outDir": "dist/build",
-  "rootDir": "./.github",
- }
+  "rootDir": ".",
+ },
+ "include": [
+  "src/**/*"
+ ]
 }
