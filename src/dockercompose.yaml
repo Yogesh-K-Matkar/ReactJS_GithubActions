@@ -1,0 +1,7 @@
+services:
+  reactjs_appcntr:
+    build:
+      dockerfile: dockerfile
+    images: reactjs_app:v1.0
+    ports:
+      - "5000:5000"

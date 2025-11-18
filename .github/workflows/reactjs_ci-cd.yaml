@@ -1,0 +1,56 @@
+name: ReactJS CI/CD Pipeline Workflow
+
+on:
+  push:
+    branches: ["main"] #origin
+  # pull_request:
+  #   branches: ["main"] #origin
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest #shared runner
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4 #checkout repo
+
+      - name: Setup Node
+        uses: actions/setup-node@v4 #setup node
+        with:
+          node-version: "20" #node version
+
+      - name: Install Clean Dependencies
+        run: npm ci #install dependencies
+
+      - name: Compile TypeScript
+        run: npm run compile #compile project
+
+      - name: Upload Compiled Artifact
+        id: upload-compiled-artifact #artifact id that is used in output parameter
+        uses: actions/upload-artifact@v4 #upload artifact
+        with:
+          name: compiled-artifact #artifact name
+          path: .github/compile #Upload Compile artifact resides in this physical path
+
+
+  # build:
+  #   needs: compile #dependency
+  #   runs-on: ubuntu-latest #shared runner
+
+  #   steps:
+  #     - name: Download Compiled Artifact
+  #       id: download-compiled-artifact
+  #       uses: actions/download-artifact@v4 #download artifact which is compiled in compile step
+  #       with:
+  #         name: compiled-artifact #artifact name
+  #         path: ./workflows/compiled #Download compiled artifact resides in this physical path
+
+  #     - name: Build Project
+  #       run: npm run build #build project
+
+  #     - name: Upload Build Artifact
+  #       id: upload-build-artifact
+  #       uses: actions/upload-artifact@v4 #upload artifact
+  #       with:
+  #         name: build-artifact #artifact name
+  #         path: dist/build #Upload build artifact resides in this physical path
